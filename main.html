@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <title>Countdown</title>
+</head>
+
+<body>
+    <form action="#" class="inputDates">
+        <label for="title">Title
+            <input type="text" name="title" id="addTitle" placeholder="AddTitle" required>
+        </label>
+        <label for="description">Description
+            <input type="text" name="description" id="addDesc" placeholder="AddDesc" required>
+        </label>
+        <input type="date" name="date" id="addDate">
+        <input type="time" name="time" id="addHour">
+        <input type="submit" name="uploadDate" id="addDateButtton" value="Add date">
+    </form>
+    <div class="datesList" id="datesList">
+        <!-- Aquí se agrega la lista de los elementos guardados -->
+    </div>
+    <input type="button" value="Borrar todo" id="deleteAllDates">
+    <div class="countdownBox">
+        <h1 class="countdownBox__title" id="countdownBox__title">Titlo de la cuenta regresiva</h1>
+        <h3 class="countdownBox__description" id="countdownBox__description">Descripcion de la cuenta regresiva</h3>
+        <div class="countdownBox__timerBox">
+            <div class="countdownBox__timer">
+                <p id="days">time</p>
+                <p class="timer--pos">Days</p>
+            </div>
+            <div class="countdownBox__timer">
+                <p id="hours">time</p>
+                <p class="timer--pos">Hours</p>
+            </div>
+            <div class="countdownBox__timer">
+                <p id="minutes">time</p>
+                <p class="timer--pos">Minutes</p>
+            </div>
+            <div class="countdownBox__timer">
+                <p id="seconds">time</p>
+                <p class="timer--pos">Seconds</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="dateManager.js"></script>
+</body>
+
+</html>

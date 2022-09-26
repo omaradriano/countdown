@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+:root {
+    --bg-color: #E0FBFC;
+    --text-color: #253237;
+    --box-color: #C2DFE3;
+    --border-color: #5C6B73;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.countdownBox {
+    height: 90%;
+    width: 90%;
+    background-color: var(--box-color);
+    border: 5px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Input de agregar fechas */
+.inputDates {
+    /* position: absolute; */
+    top: 8%;
+    left: 10%;
+}
+
+/* Lista de las fechas agregadas */
+.datesList {
+    width: 100%;
+    height: 250px;
+    overflow-y: scroll;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+.datesList__item {
+    height: 50px;
+    width: 95%;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+}
+
+.item__info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.countdownBox__title {
+    display: inline-block;
+}
+.countdownBox__description {
+    display: inline-block;
+}
+
+.countdownBox__timerBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.countdownBox__timer{
+    border-radius: 50%;
+    border: 5px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.timer--pos {
+    position: absolute;
+    font-weight: 700;
+}
+
+
+@media (min-width: 320px) {
+    .countdownBox__timerBox{
+        flex-direction: column  ;
+        margin-top: 35px;
+        width: 50%;
+    }
+
+    .countdownBox__timer {
+        margin-top: 20px;
+        height: 120px;
+        width: 120px;
+        left: -55px;
+    }
+
+    .timer--pos {
+        left: 150px;
+    }
+}
+
+@media (min-width: 992px) {
+    .countdownBox__timerBox {
+        flex-direction: row;
+        width: 75%;
+    }
+    .countdownBox__timer {
+        left: 0;
+    }
+
+    .timer--pos {
+        bottom: -55px;
+        left: initial;
+    }
+}
