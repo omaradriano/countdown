@@ -147,7 +147,7 @@ window.onload = setInterval(() => {
     if (!localStorage.getItem('datesCollection')) { //Si no existe colección, pone la fecha actual
         let loadFirstDate = new Date()
         localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
-        // returnLeftTime(loadFirstDate, datesCollection)
+        returnLeftTime(loadFirstDate, datesCollection)
     } else {
         datesCollection = JSON.parse(localStorage.getItem('datesCollection')) //Si hay colección, carga activeDate
         if (datesCollection.activeDate.date) {
