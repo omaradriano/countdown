@@ -21,15 +21,16 @@ const deleteAllDates = document.getElementById('deleteAllDates')
 // Variables para borrar item de la lista
 const removeItemButton = document.getElementById('removeItemButton')
 // Se va a guardar un objeto en LocalStorage con las fechas en un array
+const defaultDate = {
+    title: 'No hay informacion para mostrar',
+    description: '',
+    date: '0/0/2024'.split(/[\/-]/g),
+    hour: '00:00'.split(/[:]/g),
+    id: Math.random().toString(36).substr(2, 18)
+}
 
 let datesCollection = {
-    activeDate: {
-        title: 'Default',
-        description: 'Default',
-        date: '0/0/2024',
-        hour: '00:00',
-        id: Math.random().toString(36).substr(2, 18)
-    },
+    activeDate: defaultDate,
     eventsList: []
 }
 
@@ -42,6 +43,12 @@ addDateButtton.addEventListener('click', (e) => {
         date: '',
         hour: '',
         id: Math.random().toString(36).substr(2, 18)
+    }
+
+    if(JSON.parse(localStorage.getItem('datesCollection')).eventsList.length > 0){
+        setInterval(()=>{
+
+        },1000)
     }
 
     //NOTA: los campos deben ser required | falta implementación
@@ -93,36 +100,37 @@ function renderElements(data) {
 function removeItem(e) {
     datesCollection.eventsList.forEach((elem, index) => {
         if (e.target.parentElement.parentElement.parentElement.getAttribute('name') === elem.id) {
-            // console.log(elem.id)
-            // console.log(e.target.parentElement.parentElement.parentElement.getAttribute('name'))
-            // console.log('Si coincide')
-            datesCollection.eventsList.splice(index, 1)
-            localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
-        }
-        if (datesCollection === []) {
-            let loadFirstDate = new Date()
-
-            returnLeftTime(loadFirstDate, datesCollection)
+            if(e.target.parentElement.parentElement.parentElement.getAttribute('name') === datesCollection.activeDate.id){
+                datesCollection.eventsList.splice(index, 1)
+                localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
+                if (datesCollection.eventsList.length === 0) {
+                    datesCollection.activeDate = defaultDate
+                    localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
+                    let loadFirstDate = new Date()
+                    returnLeftTime(loadFirstDate, datesCollection)
+                } else {
+                    datesCollection.activeDate = datesCollection.eventsList[0]
+                    localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
+                    let prevDate = new Date(datesCollection.activeDate.date[0], datesCollection.activeDate.date[1] - 1, datesCollection.activeDate.date[2], ...datesCollection.activeDate.hour)
+                    returnLeftTime(prevDate, datesCollection)
+                }
+            }else{
+                datesCollection.eventsList.splice(index, 1)
+                localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
+            }
         }
         // console.log(datesCollection)
         renderElements(datesCollection)
     })
     // console.log(e.target.parentElement.parentElement.parentElement.getAttribute('name'))
-
 }
 //Activa boton para borrar todo 
 deleteAllDates.addEventListener('click', () => {
     datesCollection = {
-        activeDate: {
-            title: 'Default',
-            description: 'Default',
-            date: '0/0/2024',
-            hour: '00:00',
-            id: Math.random().toString(36).substr(2, 18)
-        },
+        activeDate: defaultDate,
         eventsList: []
     }
-    localStorage.removeItem('datesCollection')
+    localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
     renderElements(datesCollection)
 })
 // Cargar los datos de la activeDate e imprimirlos en el DOM
@@ -133,56 +141,61 @@ function returnLeftTime(reachDate, data) {
     let hoursLeft = Math.floor((leftedTime % 86400) / 3600)
     let minutesLeft = Math.floor(((leftedTime % 86400) % 3600) / 60)
     let secondsLeft = Math.floor(((leftedTime % 86400) % 3600) % 60)
-
     countdownBox__title.innerHTML = `${data.activeDate.title}`
     countdownBox__description.innerHTML = `${data.activeDate.description}`
-    days.innerHTML = `${daysLeft}`
-    hours.innerHTML = `${hoursLeft}`
-    minutes.innerHTML = `${minutesLeft}`
-    seconds.innerHTML = `${secondsLeft}`
+
+    if (leftedTime < 0) {
+        days.innerHTML = `0`
+        hours.innerHTML = `00`
+        minutes.innerHTML = `00`
+        seconds.innerHTML = `00`
+    } else {
+        days.innerHTML = `${daysLeft}`
+        hours.innerHTML = `${hoursLeft}`
+        minutes.innerHTML = `${minutesLeft}`
+        seconds.innerHTML = `${secondsLeft}`
+    }
 }
 
 //Carga automático lo que hay en localStorage. En caso de existir un activeDate lo carga
-window.onload = setInterval(() => {
-    if (!localStorage.getItem('datesCollection')) { //Si no existe colección, pone la fecha actual
-        let loadFirstDate = new Date()
-        localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
-        returnLeftTime(loadFirstDate, datesCollection)
-    } else {
-        datesCollection = JSON.parse(localStorage.getItem('datesCollection')) //Si hay colección, carga activeDate
-        if (datesCollection.activeDate.date) {
-            let fetchedActiveDate = new Date(datesCollection.activeDate.date[0], datesCollection.activeDate.date[1] - 1, datesCollection.activeDate.date[2], ...datesCollection.activeDate.hour)
-            returnLeftTime(fetchedActiveDate, datesCollection)
-            // console.log(datesCollection)
-        }
-    }
-}, 1000);
-
-window.onload = function () { //Esta función está exiliada por que render elements solo debe de ser cargado una vez para no mandar alv el DOM con tanta carga xd
-    if (localStorage.getItem('datesCollection')) {
-        let loadDomList = JSON.parse(localStorage.getItem('datesCollection'))
-        renderElements(loadDomList)
-    } else {
-        datesList.innerHTML = 'No hay elementos para mostrar'
-    }
-}
-
-//Las lineas siguientes son para cortar las dos funciones onload anteriores pero aun no se ha implementado
-
-// window.onload = function () {
-//     if (!localStorage.getItem('datesCollection')) {
+// window.onload = setInterval(() => {
+//     if (!localStorage.getItem('datesCollection')) { //Si no existe colección, pone la fecha actual
 //         let loadFirstDate = new Date()
 //         localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
 //         returnLeftTime(loadFirstDate, datesCollection)
 //     } else {
 //         datesCollection = JSON.parse(localStorage.getItem('datesCollection')) //Si hay colección, carga activeDate
-//         setInterval(() => {
-//             if (datesCollection.activeDate.date) {
-//                 let fetchedActiveDate = new Date(datesCollection.activeDate.date[0], datesCollection.activeDate.date[1] - 1, datesCollection.activeDate.date[2], ...datesCollection.activeDate.hour)
-//                 returnLeftTime(fetchedActiveDate, datesCollection)
-//                 // console.log(datesCollection)
-//             }
-//         }, 1000)
-//         renderElements(datesCollection)
+//         if (datesCollection.activeDate.date) {
+//             let fetchedActiveDate = new Date(datesCollection.activeDate.date[0], datesCollection.activeDate.date[1] - 1, datesCollection.activeDate.date[2], ...datesCollection.activeDate.hour)
+//             returnLeftTime(fetchedActiveDate, datesCollection)
+//         }
+//     }
+// }, 1000);
+
+// window.onload = function () { //Esta función está exiliada por que render elements solo debe de ser cargado una vez para no mandar alv el DOM con tanta carga xd
+//     if (localStorage.getItem('datesCollection')) {
+//         let loadDomList = JSON.parse(localStorage.getItem('datesCollection'))
+//         renderElements(loadDomList)
+//     } else {
+//         datesList.innerHTML = 'No hay elementos para mostrar'
 //     }
 // }
+
+
+//Las lineas siguientes son para cortar las dos funciones onload anteriores pero aun no se ha implementado
+window.onload = function () {
+    if (!localStorage.getItem('datesCollection')) { //Si no existe colección, pone la fecha actual
+        let defaultDate = new Date()
+        localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
+        returnLeftTime(defaultDate, datesCollection)
+    } else {
+        setInterval(() => {
+            datesCollection = JSON.parse(localStorage.getItem('datesCollection')) //Si hay colección, carga activeDate
+            if (datesCollection.activeDate.date) {
+                let fetchedActiveDate = new Date(datesCollection.activeDate.date[0], datesCollection.activeDate.date[1] - 1, datesCollection.activeDate.date[2], ...datesCollection.activeDate.hour)
+                returnLeftTime(fetchedActiveDate, datesCollection)
+            }
+            renderElements(datesCollection)
+        },1000)
+    }
+}
