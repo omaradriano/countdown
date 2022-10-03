@@ -54,6 +54,10 @@ addDateButtton.addEventListener('click', (e) => {
         },1000)
     }
 
+    // if(addTitle.value === ''){
+    //     let warningAdvice = document.createElement('div')
+    // }
+
     //NOTA: los campos deben ser required | falta implementación
     newDate.title = addTitle.value
     newDate.description = addDesc.value
@@ -74,7 +78,6 @@ addDateButtton.addEventListener('click', (e) => {
     //Reiniciar formulario
     formDate[0].reset()
     renderElements(datesCollection)
-    console.log(datesCollection)
 
 })
 
@@ -85,6 +88,8 @@ function renderElements(data) {
         let newItem = document.createElement('div')
         newItem.className = 'datesList__item'
         newItem.setAttribute('name', elem.id)
+        newItem.setAttribute('id', elem.id)
+        newItem.setAttribute('onclick', 'clickedItem(event)')
         newItem.innerHTML = `
                             <h3 class="item__title">${elem.title}</h3>
                             <div class="item__info">
@@ -100,8 +105,25 @@ function renderElements(data) {
     })
 }
 
+//Actualizar elemento de la lista con click
+function clickedItem(e) {
+    e.stopPropagation()
+    // console.log(e.target.parentElement.parentElement.getAttribute('name') === elem.id)
+    if(e.target.nodeName !== 'INPUT'){
+        datesCollection.eventsList.forEach((elem, index)=>{
+            if(e.target.parentElement.getAttribute('id') === elem.id || e.target.getAttribute('name') === elem.id || e.target.parentElement.parentElement.getAttribute('name') === elem.id){
+                console.log(`Se ha presionado ${e.target.parentElement.getAttribute('id')}`)
+                datesCollection.activeDate = datesCollection.eventsList[index]
+                localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
+                let actualDate = new Date(datesCollection.activeDate.date[0], datesCollection.activeDate.date[1] - 1, datesCollection.activeDate.date[2], ...datesCollection.activeDate.hour)
+                returnLeftTime(actualDate, datesCollection)
+            }
+        })
+    }
+}
 // ELiminar elemento de la lista
 function removeItem(e) {
+    e.stopPropagation()
     datesCollection.eventsList.forEach((elem, index) => {
         if (e.target.parentElement.parentElement.parentElement.getAttribute('name') === elem.id) { //Acceder al elemento, si coíncide será eliminado
             if(e.target.parentElement.parentElement.parentElement.getAttribute('name') === datesCollection.activeDate.id){ //Misma validación anterior pero con activeDate
@@ -168,13 +190,13 @@ window.onload = function () {
         localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
         returnLeftTime(defaultDate, datesCollection)
     } else {
+        datesCollection = JSON.parse(localStorage.getItem('datesCollection')) //Si hay colección, carga activeDate
         setInterval(() => {
-            datesCollection = JSON.parse(localStorage.getItem('datesCollection')) //Si hay colección, carga activeDate
             if (datesCollection.activeDate.date) {
                 let fetchedActiveDate = new Date(datesCollection.activeDate.date[0], datesCollection.activeDate.date[1] - 1, datesCollection.activeDate.date[2], ...datesCollection.activeDate.hour)
                 returnLeftTime(fetchedActiveDate, datesCollection)
             }
-            renderElements(datesCollection)
         },1000)
+        renderElements(datesCollection)
     }
 }
