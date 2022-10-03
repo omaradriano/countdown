@@ -20,7 +20,8 @@ const deleteAllDates = document.getElementById('deleteAllDates')
 
 // Variables para borrar item de la lista
 const removeItemButton = document.getElementById('removeItemButton')
-// Se va a guardar un objeto en LocalStorage con las fechas en un array
+
+//Objeto base que sirve para poner valores por defecto en caso de no existir ninguna fecha en el array
 const defaultDate = {
     title: 'No hay informacion para mostrar',
     description: '',
@@ -29,6 +30,7 @@ const defaultDate = {
     id: Math.random().toString(36).substr(2, 18)
 }
 
+// Se va a guardar un objeto en LocalStorage con las fechas en un array
 let datesCollection = {
     activeDate: defaultDate,
     eventsList: []
@@ -45,6 +47,7 @@ addDateButtton.addEventListener('click', (e) => {
         id: Math.random().toString(36).substr(2, 18)
     }
 
+    //Se activa setInterval en caso de haber fechas en el array
     if(JSON.parse(localStorage.getItem('datesCollection')).eventsList.length > 0){
         setInterval(()=>{
 
@@ -57,6 +60,7 @@ addDateButtton.addEventListener('click', (e) => {
     newDate.date = addDate.value.split(/[\/-]/g)
     newDate.hour = addHour.value.split(/[:]/g)
 
+    //Agrega el nuevo valor a la lista datesCollection y lo actualiza en localStorage
     if (!localStorage.getItem('datesCollection')) {
         datesCollection.eventsList.push(newDate)
         datesCollection.activeDate = newDate
@@ -99,8 +103,8 @@ function renderElements(data) {
 // ELiminar elemento de la lista
 function removeItem(e) {
     datesCollection.eventsList.forEach((elem, index) => {
-        if (e.target.parentElement.parentElement.parentElement.getAttribute('name') === elem.id) {
-            if(e.target.parentElement.parentElement.parentElement.getAttribute('name') === datesCollection.activeDate.id){
+        if (e.target.parentElement.parentElement.parentElement.getAttribute('name') === elem.id) { //Acceder al elemento, si coíncide será eliminado
+            if(e.target.parentElement.parentElement.parentElement.getAttribute('name') === datesCollection.activeDate.id){ //Misma validación anterior pero con activeDate
                 datesCollection.eventsList.splice(index, 1)
                 localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
                 if (datesCollection.eventsList.length === 0) {
@@ -156,31 +160,6 @@ function returnLeftTime(reachDate, data) {
         seconds.innerHTML = `${secondsLeft}`
     }
 }
-
-//Carga automático lo que hay en localStorage. En caso de existir un activeDate lo carga
-// window.onload = setInterval(() => {
-//     if (!localStorage.getItem('datesCollection')) { //Si no existe colección, pone la fecha actual
-//         let loadFirstDate = new Date()
-//         localStorage.setItem('datesCollection', JSON.stringify(datesCollection))
-//         returnLeftTime(loadFirstDate, datesCollection)
-//     } else {
-//         datesCollection = JSON.parse(localStorage.getItem('datesCollection')) //Si hay colección, carga activeDate
-//         if (datesCollection.activeDate.date) {
-//             let fetchedActiveDate = new Date(datesCollection.activeDate.date[0], datesCollection.activeDate.date[1] - 1, datesCollection.activeDate.date[2], ...datesCollection.activeDate.hour)
-//             returnLeftTime(fetchedActiveDate, datesCollection)
-//         }
-//     }
-// }, 1000);
-
-// window.onload = function () { //Esta función está exiliada por que render elements solo debe de ser cargado una vez para no mandar alv el DOM con tanta carga xd
-//     if (localStorage.getItem('datesCollection')) {
-//         let loadDomList = JSON.parse(localStorage.getItem('datesCollection'))
-//         renderElements(loadDomList)
-//     } else {
-//         datesList.innerHTML = 'No hay elementos para mostrar'
-//     }
-// }
-
 
 //Las lineas siguientes son para cortar las dos funciones onload anteriores pero aun no se ha implementado
 window.onload = function () {
