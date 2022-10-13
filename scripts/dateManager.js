@@ -35,7 +35,6 @@ let datesCollection = {
     activeDate: defaultDate,
     eventsList: []
 }
-
 // Añadir fechas dinamicamente además de cargar la recién agregada como activeDate
 addDateButtton.addEventListener('click', (e) => {
     e.preventDefault()

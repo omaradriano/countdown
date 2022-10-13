@@ -14,21 +14,25 @@
 </head>
 
 <body>
-    <form action="#" class="inputDates">
-        <label for="title">Title
-            <input type="text" name="title" id="addTitle" placeholder="AddTitle" required>
-        </label>
-        <label for="description">Description
-            <input type="text" name="description" id="addDesc" placeholder="AddDesc" required>
-        </label>
-        <input type="date" name="date" id="addDate">
-        <input type="time" name="time" id="addHour">
-        <input type="submit" name="uploadDate" id="addDateButtton" value="Add date">
-    </form>
-    <div class="datesList" id="datesList">
-        <!-- Aquí se agrega la lista de los elementos guardados -->
+    <div class="datesContainer" id="datesContainer">
+        <form action="#" class="inputDates">
+            <h2>Agregar fecha</h2>
+            <label for="title">Title
+                <input type="text" name="title" id="addTitle" placeholder="AddTitle" required>
+            </label>
+            <label for="description">Description
+                <input type="text" name="description" id="addDesc" placeholder="AddDesc" required>
+            </label>
+            <input type="date" name="date" id="addDate">
+            <input type="time" name="time" id="addHour">
+            <input type="submit" name="uploadDate" id="addDateButtton" value="Add date">
+        </form>
+        <div class="datesList" id="datesList">
+            <!-- Aquí se agrega la lista de los elementos guardados -->
+        </div>
+        <div class="datesContainer__toggleButton" id="toggleExpand"><img src="icons/expand.png" alt="Toggle expand image"></div>
     </div>
-    <input type="button" value="Borrar todo" id="deleteAllDates">
+    <input type="button" value="Borrar todo" id="deleteAllDates" style="display: none;">
     <div class="countdownBox">
         <h1 class="countdownBox__title" id="countdownBox__title">Titlo de la cuenta regresiva</h1>
         <h3 class="countdownBox__description" id="countdownBox__description">Descripcion de la cuenta regresiva</h3>
@@ -52,7 +56,8 @@
         </div>
     </div>
 
-    <script src="dateManager.js"></script>
+    <script src="scripts/dateManager.js"></script>
+    <script src="scripts/animations.js"></script>
 </body>
 
 </html>

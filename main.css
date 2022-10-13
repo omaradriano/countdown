@@ -3,10 +3,11 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Source Sans Pro', sans-serif;
+    /* font-size: 82.5%; */
 }
 
 :root {
-    --bg-color: #E0FBFC;
+    --bg-color: #E9ECEF;
     --text-color: #253237;
     --box-color: #C2DFE3;
     --border-color: #5C6B73;
@@ -23,6 +24,77 @@ body {
     position: relative;
 }
 
+/* Formulario para ingresar los datos y fechas */
+.datesContainer{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    width: 95%;
+    height: 30%;
+    top: -15rem;
+    background-color: red;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 5px;
+    border: 4px solid black;
+    background-color: var(--bg-color);
+    z-index: 0;
+    transition: 0.5s ease-in;
+}
+
+.datesContainer__toggleButton {
+    height: 3rem;
+    width: 10rem;
+    position: absolute;
+    z-index: 1;
+    background-color: var(--bg-color);
+    bottom: calc(-3rem - 1px);
+    right: calc(50% -10rem);
+    border: 4px solid black;
+    border-top: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+/* Lista de las fechas agregadas */
+.datesList {
+    width: 45%;
+    height: 90%;
+    overflow-y: scroll;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    overflow-y: scroll;
+}
+.datesList__item {
+    height: 50px;
+    width: 95%;
+    border: 4px solid black;
+    /* border-radius: 5px; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    min-height: 50px;
+    margin: 5px 0;
+}
+.inputDates {
+    position: relative;
+    height: 90%;
+    width: 45%;
+    background-color: rgba(0, 0, 0, 0.3);
+    left: 2%;
+    top: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+}
+
 .countdownBox {
     height: 90%;
     width: 90%;
@@ -34,41 +106,16 @@ body {
     flex-direction: column;
 }
 
-/* Input de agregar fechas */
-.inputDates {
-    /* position: absolute; */
-    top: 8%;
-    left: 10%;
-}
-
-/* Lista de las fechas agregadas */
-.datesList {
-    width: 100%;
-    height: 250px;
-    overflow-y: scroll;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 10px;
-}
-.datesList__item {
-    height: 50px;
-    width: 95%;
-    border: 1px solid black;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 5px;
-    cursor: pointer;
-}
 
 .item__info {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-left: 20px;
+}
+
+.item__options {
+    align-self: flex-end;
 }
 
 .countdownBox__title {
