@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Default CSS -->
-    <link rel="stylesheet" href="main.css">
+    <!-- <link rel="stylesheet" href="main.css"> -->
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,12 @@
 </head>
 
 <body>
-    <div class="datesContainer" id="datesContainer">
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#datesContainer"
+        aria-controls="offcanvasExample">
+        Desplegar opciones
+    </button>
+    <div class="offcanvas col col-md-10" id="datesContainer" >
+        <!-- No borrar clase inputDates -->
         <form action="#" class="inputDates">
             <h2>Agregar fecha</h2>
             <label for="title">Title
@@ -30,38 +35,37 @@
             <input type="time" name="time" id="addHour">
             <input type="submit" name="uploadDate" id="addDateButtton" value="Add date">
         </form>
-        <div class="datesList" id="datesList">
+        <div class="" id="datesList">
             <!-- Aquí se agrega la lista de los elementos guardados -->
         </div>
-        <div class="datesContainer__toggleButton" id="toggleExpand"><img src="icons/expand.png"
-                alt="Toggle expand image"></div>
+        <div class="" id=""><img src="icons/expand.png" alt="Toggle expand image"></div>
     </div>
     <input type="button" value="Borrar todo" id="deleteAllDates" style="display: none;">
-    <div class="countdownBox">
-        <h1 class="countdownBox__title" id="countdownBox__title">Titlo de la cuenta regresiva</h1>
-        <h3 class="countdownBox__description" id="countdownBox__description">Descripcion de la cuenta regresiva</h3>
-        <div class="countdownBox__timerBox">
-            <div class="countdownBox__timer">
+    <div class="container-fluid bg-info vh-100 d-flex flex-column align-items-center justify-content-center">
+        <h1 class="" id="countdownBox__title">Titlo de la cuenta regresiva</h1>
+        <h3 class="" id="countdownBox__description">Descripcion de la cuenta regresiva</h3>
+        <div class="">
+            <div class="">
                 <p id="days">0</p>
-                <p class="timer--pos">Days</p>
+                <p class="">Days</p>
             </div>
-            <div class="countdownBox__timer">
+            <div class="">
                 <p id="hours">00</p>
-                <p class="timer--pos">Hours</p>
+                <p class="">Hours</p>
             </div>
-            <div class="countdownBox__timer">
+            <div class="">
                 <p id="minutes">00</p>
-                <p class="timer--pos">Minutes</p>
+                <p class="">Minutes</p>
             </div>
-            <div class="countdownBox__timer">
+            <div class="">
                 <p id="seconds">00</p>
-                <p class="timer--pos">Seconds</p>
+                <p class="">Seconds</p>
             </div>
         </div>
     </div>
 
     <script src="scripts/dateManager.js"></script>
-    <script src="scripts/animations.js"></script>
+    <!-- <script src="scripts/animations.js"></script> -->
     <script src="res/bootstrap.bundle.min.js"></script>
 </body>
 
