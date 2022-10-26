@@ -161,7 +161,7 @@ deleteAllDates.addEventListener('click', () => {
 // Cargar los datos de la activeDate e imprimirlos en el DOM
 function returnLeftTime(reachDate, data) {
     let actualDate = new Date()
-    let leftedTime = ((reachDate.getTime() - actualDate.getTime()) / 1000) - 3600
+    let leftedTime = ((reachDate.getTime() - actualDate.getTime()) / 1000)
     let daysLeft = Math.floor(leftedTime / 86400)
     let hoursLeft = Math.floor((leftedTime % 86400) / 3600)
     let minutesLeft = Math.floor(((leftedTime % 86400) % 3600) / 60)

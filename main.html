@@ -25,20 +25,25 @@
 </head>
 
 <body>
-    <div class="window window--config d-flex flex-row align-items-center justify-content-center" id="offcanvasWindow" style="position: absolute; top: 0;">
+    <div class="window window--config d-flex flex-row align-items-center justify-content-center" id="offcanvasWindow"
+        style="position: absolute; top: 0;">
         <!-- No borrar clase inputDates -->
         <div name="outCanvas" class="outCanvas d-flex flex-column flex-lg-row align-items-center
                     position-relative">
-            <form action="#" class="inputDates d-flex flex-column align-items-start pt-3 pb-3">
+            <form action="#" class="inputDates d-flex flex-column align-items-start pt-3 pb-3 position-relative d-flex flex-row align-items-center">
                 <h2>Agregar fecha</h2>
-                <label for="title" class="text--normal">Title
+                <label for="title" class="text--normal d-flex flex-row align-items-center position-relative">Title
                     <input type="text" name="title" id="addTitle" placeholder="AddTitle" required>
                 </label>
-                <label for="description" class="text--normal">Description
+                <label for="description" class="text--normal d-flex flex-row align-items-center position-relative">Description
                     <input type="text" name="description" id="addDesc" placeholder="AddDesc" required>
                 </label>
-                <input type="date" name="date" id="addDate">
-                <input type="time" name="time" id="addHour">
+                <label for="date" class="text--normal d-flex flex-row align-items-center position-relative">Fecha
+                    <input type="date" name="date" id="addDate">
+                </label>
+                <label for="time" class="text--normal d-flex flex-row align-items-center position-relative">Hora
+                    <input type="time" name="time" id="addHour">
+                </label>
                 <input type="submit" name="uploadDate" id="addDateButtton" value="Add date" class="addDateBtn">
             </form>
             <div class="datesContainer" id="datesList">

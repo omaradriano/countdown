@@ -11,7 +11,10 @@
     --titles-text-color: #9b5de5;
 }
 
-h1, h2, h3, p {
+h1,
+h2,
+h3,
+p {
     color: white;
 }
 
@@ -19,7 +22,7 @@ h1, h2, h3, p {
     color: var(--titles-text-color);
     font-weight: 700;
     font-size: 2rem;
-    z-index: 5;
+    z-index: 1;
 }
 
 .text--relevant {
@@ -59,7 +62,7 @@ h1, h2, h3, p {
 }
 
 /* offcanvas */
-.window--config{
+.window--config {
     position: absolute;
     background-color: transparent;
     z-index: 1;
@@ -72,6 +75,7 @@ h1, h2, h3, p {
 .outCanvas {
     width: 80%;
     height: 600px;
+    top: 15px;
     background-color: var(--mainColor);
     border: 2px solid white;
     /* visibility: hidden; */
@@ -88,16 +92,34 @@ h1, h2, h3, p {
     font-size: 1rem;
 }
 
-.inputDates > input {
-    align-self: center;
+label {
+    /* align-self: flex-start; */
+    justify-content: flex-start;
+    width: 100%;
 }
 
-label input {
-    margin-left: 20px;
-    color: white;
+label>#addTitle {
+    position: relative;
+    right: -46px;
 }
 
-.inputDates > h2 {
+label>#addDate {
+    position: relative;
+    right: -55px;
+}
+
+label>#addHour {
+    position: relative;
+    right: -71px;
+}
+
+.inputDates {
+    min-width: 300px;
+    padding: 0 15px;
+    height: 250px;
+}
+
+.inputDates>h2 {
     align-self: center;
 }
 
@@ -116,10 +138,13 @@ label input {
     border: none;
     cursor: pointer;
 }
+
 .datesList__item {
     margin-bottom: 10px;
 }
-.datesList__item:hover, .datesList__item:hover h3 {
+
+.datesList__item:hover,
+.datesList__item:hover h3 {
     color: var(--mainColor);
     background-color: white;
     font-weight: 700;
@@ -129,7 +154,10 @@ label input {
     height: 30px;
     width: 120px;
     font-weight: 700;
+    position: relative;
+    top: 10px;
 }
+
 .addDateBtn:hover {
     border: 2px solid var(--mainColor);
     background-color: white;
@@ -137,21 +165,23 @@ label input {
 }
 
 .datesContainer {
-    width: 90%;
+    width: 70%;
     position: absolute;
     bottom: 20px;
-    height: 350px;
+    height: 300px;
     overflow-y: scroll;
 }
 
 .datesContainer::-webkit-scrollbar {
     width: 20px;
 }
-.datesContainer::-webkit-scrollbar-track{
+
+.datesContainer::-webkit-scrollbar-track {
     background: var(--mainColor);
     border: 2px solid white;
 }
-.datesContainer::-webkit-scrollbar-thumb{
+
+.datesContainer::-webkit-scrollbar-thumb {
     width: 20px;
     background-color: white;
 }
@@ -172,22 +202,31 @@ label input {
 
 /* Media queries */
 
-@media (min-width: 992px){
+@media (min-width: 992px) {
     .counter--config {
         width: 60%;
         top: calc(50% - 115px);
     }
 
-    .text--relevant{
+    .text--relevant {
         font-size: 6rem;
     }
 }
 
-@media (min-width: 992px){
+@media (min-width: 992px) {
     .title--purple {
         font-size: 4rem;
     }
+
     .datesContainer {
-        position: initial;
+        position: absolute;
+        right: 10px;
+        top: calc(50% - 150px);
+    }
+}
+
+@media (max-width: 992px) {
+    .datesContainer {
+        width: 90%;
     }
 }
