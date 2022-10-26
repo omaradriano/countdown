@@ -1,13 +1,20 @@
-// Botton para alternar el menu de fechas
-const datesContainer = document.getElementById('datesContainer')
-const toggleExpand = document.getElementById('toggleExpand')
+// offcanvas
+
+let offcanvasWindow = document.getElementById('offcanvasWindow')
+let activeOutCanvas = document.getElementById('activeOutCanvas')
+let window__close = document.getElementById('window__close')
 let active = false
-toggleExpand.addEventListener('click', () => {
-    active = !active
-    if(!active){
-        datesContainer.style.top = '-15rem'
-    }else{
-        console.log('Activo')
-        datesContainer.style.top = '0.5rem'
+// offcanvasWindow.style.visibility = 'hidden';
+
+activeOutCanvas.addEventListener('click', () => {
+    active = true
+    if (active) {
+        offcanvasWindow.style.visibility = 'visible';
+    }
+})
+window__close.addEventListener('click', () => {
+    active = false
+    if (!active) {
+        offcanvasWindow.style.visibility = 'hidden';
     }
 })

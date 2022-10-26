@@ -79,24 +79,24 @@ addDateButtton.addEventListener('click', (e) => {
     renderElements(datesCollection)
 
 })
+{/* <div class="info__datetime text--normal">
+                                    ${elem.date[2]}/${elem.date[1]}/${elem.date[0]}
+                                </div> */}
 
 // Cargar lista de elementos en el DOM
 function renderElements(data) {
     datesList.innerHTML = ''
     data.eventsList.forEach(elem => {
         let newItem = document.createElement('div')
-        newItem.className = 'datesList__item'
+        newItem.className = 'datesList__item d-flex flex-row align-items-center position-relative p-3'
         newItem.setAttribute('name', elem.id)
         newItem.setAttribute('id', elem.id)
         newItem.setAttribute('onclick', 'clickedItem(event)')
         newItem.innerHTML = `
-                            <h3 class="item__title">${elem.title}</h3>
-                            <div class="item__info">
-                                <div class="info__datetime">
-                                    ${elem.date[2]}/${elem.date[1]}/${elem.date[0]}
-                                </div>
-                                <div class="item__options">
-                                    <input type='button' value='Eliminar' name='removeItem' onclick='removeItem(event)'/>
+                            <h3 class="item__title ms-3">${elem.title}</h3>
+                            <div class="item__info d-flex flex-row position-absolute">
+                                <div class="item__options ms-3">
+                                    <input class='trashCanBtn' type='button' name='removeItem' onclick='removeItem(event)'/>
                                 </div>
                             </div>
                             `
@@ -161,7 +161,7 @@ deleteAllDates.addEventListener('click', () => {
 // Cargar los datos de la activeDate e imprimirlos en el DOM
 function returnLeftTime(reachDate, data) {
     let actualDate = new Date()
-    let leftedTime = ((reachDate.getTime() - actualDate.getTime()) / 1000) - 3600
+    let leftedTime = ((reachDate.getTime() - actualDate.getTime()) / 1000)
     let daysLeft = Math.floor(leftedTime / 86400)
     let hoursLeft = Math.floor((leftedTime % 86400) / 3600)
     let minutesLeft = Math.floor(((leftedTime % 86400) % 3600) / 60)
